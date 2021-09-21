@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Text Animations</title>
+</head>
+
+<body>
+
+    <h1>Text Animating</h1>
+
+    <p class="animated__text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati et, vitae ipsum ab excepturi dolor cum soluta
+        debitis deserunt accusantium neque ullam voluptatibus molestiae. Sunt illum cupiditate accusamus beatae ut.
+    </p>
+
+    <script src="script/animated_texts.min.js"></script>
+    <script>
+        LettersRandomPlaces({
+            element: ".animated__text",
+            delay_time: 250,	//default 1000
+            animation_duration: 1000,	//default 250
+            force: 500,	//default 300
+            direction: ['x', 'y']	//default ['x', 'y']
+        })
+
+        // WordsRandomPlaces({
+        //     element: ".animated__text",
+        //     delay_time: 250,	//default 250
+        //     animation_duration: 3000,	//default 1000
+        //     force: 500,	//default 300
+        //     direction: ['x', 'y']	//default ['x', 'y']
+        // })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "animated_texts",
+  "version": "1.0.0",
+  "description": "javascript library for text animation",
+  "main": "script.js",
+  "author": "Cristovao Soares",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
