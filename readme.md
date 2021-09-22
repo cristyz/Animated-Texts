@@ -9,38 +9,51 @@ Hi, this library is a simple javascript text animator
   
 # Properties
 **force**
+<br>
 type: number
+<br>
 default: 300
 
 ---
 
 **start_delay_time**
+<br>
 type: number
+<br>
 default: 250
 
 ---
 
 **direction**
+<br>
 type: array
+<br>
 default: [ ' x ' , ' y ' ]
 
 ---
 
 **animation_duration**
+<br>
 type: number
+<br>
 default: 1500
 
 ---
 
 **delay_type**
+<br>
 type: string
+<br>
 default: 'sequential'
+<br>
 values: 'none' or 'random' or 'sequential'
 
 ---
 
 **random_scale**
+<br>
 type: number or boolean
+<br>
 default: false
 
 ---
