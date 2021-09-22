@@ -5,7 +5,7 @@
 
 Hi, this library is a simple javascript text animator
 
-  
+![](text_animated.gif)
   
 # Properties
 **force**
