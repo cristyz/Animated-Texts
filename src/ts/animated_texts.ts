@@ -1,17 +1,16 @@
 interface IWordsRandomPlaces {
     element: string;
-    delay_time?: number;
-    animation_duration?: number;
-    direction?: Array<string>;
     force?: number;
+    start_delay_time?: number;
+    delay_type?: 'none' | 'random' | 'sequential';
+    direction?: Array<string>;
+    animation_duration?: number;
+    random_scale?: boolean | number;
 }
 
 function WordsRandomPlaces(defaultt: IWordsRandomPlaces) {
     // default values
-    defaultt.force = defaultt.force || 300;
-    defaultt.delay_time = defaultt.delay_time || 1000;
-    defaultt.direction = defaultt.direction || ['x', 'y']
-    defaultt.animation_duration = defaultt.animation_duration || 250;
+    defaultt.force = defaultt.force || 300; defaultt.start_delay_time = defaultt.start_delay_time || 250; defaultt.direction = defaultt.direction || ['x', 'y']; defaultt.animation_duration = defaultt.animation_duration || 1500; defaultt.delay_type = defaultt.delay_type || 'sequential'; defaultt.random_scale = defaultt.random_scale || false;
     // end default values
 
     // get the text and words
@@ -24,10 +23,10 @@ function WordsRandomPlaces(defaultt: IWordsRandomPlaces) {
     // end text processing
 
     // create and configure div for each word
-    the_text_words.forEach((word: string) => {
+    the_text_words.forEach((word: string, index) => {
+
         // condition for removing divs with only whitespace
         if (word) {
-
             const div = document.createElement('div')
             div.innerText = word
 
@@ -35,7 +34,8 @@ function WordsRandomPlaces(defaultt: IWordsRandomPlaces) {
             div.style.margin = '0 5px 0 0'
             div.style.display = 'inline-block'
             div.style.transition = `${defaultt.animation_duration}ms cubic-bezier(0.68,-1.55,0.27,1.55)`
-            div.style.transform = RandomTranslateValue(defaultt.direction, defaultt.force)
+            div.style.transitionDelay = ChooseTypeDelay(defaultt.delay_type, index)
+            div.style.transform = `${RandomTranslateValue(defaultt.direction, defaultt.force)} ${RandomScale(defaultt.random_scale)}`
             // end div style
 
             the_text.append(div)
@@ -50,16 +50,13 @@ function WordsRandomPlaces(defaultt: IWordsRandomPlaces) {
         all_divs.forEach((div: HTMLElement) => {
             div.style.transform = `translate(0px, 0px)`
         })
-    }, defaultt.delay_time)
+    }, defaultt.start_delay_time)
     // end set all divs to translate(0px, 0px) after choose time
 }
 
 function LettersRandomPlaces(defaultt: IWordsRandomPlaces) {
     // default values
-    defaultt.force = defaultt.force || 300;
-    defaultt.delay_time = defaultt.delay_time || 1000;
-    defaultt.direction = defaultt.direction || ['x', 'y']
-    defaultt.animation_duration = defaultt.animation_duration || 250;
+    defaultt.force = defaultt.force || 300; defaultt.start_delay_time = defaultt.start_delay_time || 250; defaultt.direction = defaultt.direction || ['x', 'y']; defaultt.animation_duration = defaultt.animation_duration || 1500; defaultt.delay_type = defaultt.delay_type || 'sequential'; defaultt.random_scale = defaultt.random_scale || false;
     // end default values
 
     // get the text and words
@@ -72,7 +69,7 @@ function LettersRandomPlaces(defaultt: IWordsRandomPlaces) {
     // end text processing
 
     // create and configure div for each word
-    the_words.forEach((word: any) => {
+    the_words.forEach((word: any, index_word) => {
 
         const div = document.createElement('div')
         div.style.display = 'inline-block'
@@ -84,9 +81,11 @@ function LettersRandomPlaces(defaultt: IWordsRandomPlaces) {
             span.innerText = letter
 
             // span style
-            span.style.display = 'inline-block'
-            span.style.transition = `${defaultt.animation_duration}ms cubic-bezier(0.68,-1.55,0.27,1.55)`
-            span.style.transform = RandomTranslateValue(defaultt.direction, defaultt.force)
+            const s = span.style
+            s.display = 'inline-block'
+            s.transform = `${RandomTranslateValue(defaultt.direction, defaultt.force)} ${RandomScale(defaultt.random_scale)}`
+            s.transition = `${defaultt.animation_duration}ms cubic-bezier(0.68,-1.55,0.27,1.55)`
+            s.transitionDelay = ChooseTypeDelay(defaultt.delay_type, index_word)
             // end span style
 
             div.append(span)
@@ -94,7 +93,6 @@ function LettersRandomPlaces(defaultt: IWordsRandomPlaces) {
         // end create and configure span for each letter
 
         the_text.append(div)
-
     })
     // end create and configure div for each word
 
@@ -103,9 +101,11 @@ function LettersRandomPlaces(defaultt: IWordsRandomPlaces) {
         document.querySelectorAll(`${defaultt.element} div span`).forEach((span: HTMLElement) => {
             span.style.transform = `translate(0px, 0px)`
         })
-    }, defaultt.delay_time)
+    }, defaultt.start_delay_time)
     // end set all spans to translate(0px, 0px) after choose time
 }
+
+
 
 function RandomTranslateValue(direction: Array<string>, force: number) {
     const plus_or_minus = Math.random() < 0.5 ? -1 : 1;
@@ -121,4 +121,23 @@ function RandomTranslateValue(direction: Array<string>, force: number) {
         return `translate(0, ${(plus_or_minus * Math.random()) * force}px)`
     }
 
+}
+function RandomScale(random_scale: boolean | number) {
+    if (random_scale === true) {
+        return `scale(${Math.random() * 1.5 + 0.5})`
+    } else if (typeof random_scale === 'number') {
+        return `scale(${random_scale})`
+    } else {
+        return `scale(1)`
+    }
+}
+function ChooseTypeDelay(type: string, index: number) {
+    switch (type) {
+        case 'none':
+            return '0s'
+        case 'random':
+            return `${Math.random() * 8}s`
+        case 'sequential':
+            return `${(index * 0.10).toFixed(1)}s`
+    }
 }

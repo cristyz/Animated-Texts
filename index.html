@@ -14,26 +14,40 @@
     <h1>Text Animating</h1>
 
     <p class="animated__text">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati et, vitae ipsum ab excepturi dolor cum soluta
-        debitis deserunt accusantium neque ullam voluptatibus molestiae. Sunt illum cupiditate accusamus beatae ut.
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam id delectus fugit. At praesentium ea sequi facilis
+        voluptatem, aspernatur facere dolorum nihil velit itaque labore voluptates. Ipsum beatae aperiam iste iusto
+        illo. Dolorum, doloremque tempora at sit id eius earum deleniti, fuga unde asperiores deserunt quaerat dolores
+        quibusdam, vitae beatae? Odio facere doloribus molestiae corporis laborum reiciendis dolore quasi nam et minima,
+        hic possimus iure nulla consequatur excepturi voluptate earum eum praesentium nihil ut impedit, tempora rerum.
+        Tempora esse ad eum quibusdam numquam quis blanditiis vel fuga laboriosam harum? Tempore veritatis consectetur
+        vitae odio officia consequatur aperiam dolor explicabo neque.
     </p>
 
-    <script src="script/animated_texts.min.js"></script>
+    <!-- <p class="animated__words">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati et, vitae ipsum ab excepturi dolor cum soluta
+        debitis deserunt accusantium neque ullam voluptatibus molestiae. Sunt illum cupiditate accusamus beatae ut.
+    </p> -->
+
+    <script src="dist/animated_texts.min.js"></script>
     <script>
         LettersRandomPlaces({
             element: ".animated__text",
-            delay_time: 250,	//default 1000
-            animation_duration: 1000,	//default 250
-            force: 500,	//default 300
-            direction: ['x', 'y']	//default ['x', 'y']
+            start_delay_time: 250,	//default 1000
+            delay_type: "sequential",	//default sequential
+            animation_duration: 2000,	//default 250
+            force: 100,	//default 300
+            direction: ['x', 'y'],	//default ['x', 'y']
+            random_scale: true,	//default false
         })
 
         // WordsRandomPlaces({
         //     element: ".animated__text",
-        //     delay_time: 250,	//default 250
-        //     animation_duration: 3000,	//default 1000
-        //     force: 500,	//default 300
-        //     direction: ['x', 'y']	//default ['x', 'y']
+        //     start_delay_time: 250,	//default 250
+        //     delay_type: "sequential",	//default sequential
+        //     animation_duration: 1000,	//default 1000
+        //     force: 200,	//default 300
+        //     direction: ['x', 'y'],	//default ['x', 'y']
+        //     random_scale: true,	//default false
         // })
 
     </script>

@@ -2,10 +2,16 @@
   "name": "animated_texts",
   "version": "1.0.0",
   "description": "javascript library for text animation",
-  "main": "script.js",
+  "main": "animated_texts.min.js",
   "author": "Cristovao Soares",
   "license": "MIT",
   "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
     "typescript": "^4.4.3"
   }
 }
