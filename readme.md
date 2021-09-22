@@ -58,6 +58,23 @@ default: false
 
 ---
 
+**opacity**
+<br>
+type: boolean
+<br>
+default: true
+
+---
+**rotate**
+<br>
+type: number
+<br>
+default: 0
+<br>
+values: -1 for random
+
+---
+
 # Functions
 
   

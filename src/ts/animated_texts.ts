@@ -6,11 +6,20 @@ interface IWordsRandomPlaces {
     direction?: Array<string>;
     animation_duration?: number;
     random_scale?: boolean | number;
+    opacity?: boolean;
+    rotate?: number
 }
 
 function WordsRandomPlaces(defaultt: IWordsRandomPlaces) {
     // default values
-    defaultt.force = defaultt.force || 300; defaultt.start_delay_time = defaultt.start_delay_time || 250; defaultt.direction = defaultt.direction || ['x', 'y']; defaultt.animation_duration = defaultt.animation_duration || 1500; defaultt.delay_type = defaultt.delay_type || 'sequential'; defaultt.random_scale = defaultt.random_scale || false;
+    defaultt.force = defaultt.force || 300;
+    defaultt.start_delay_time = defaultt.start_delay_time || 250;
+    defaultt.direction = defaultt.direction || ['x', 'y'];
+    defaultt.animation_duration = defaultt.animation_duration || 1500;
+    defaultt.delay_type = defaultt.delay_type || 'sequential';
+    defaultt.random_scale = defaultt.random_scale || false;
+    defaultt.opacity = defaultt.opacity || true;
+    defaultt.rotate = defaultt.rotate || 0;
     // end default values
 
     // get the text and words
@@ -31,11 +40,14 @@ function WordsRandomPlaces(defaultt: IWordsRandomPlaces) {
             div.innerText = word
 
             // div style
-            div.style.margin = '0 5px 0 0'
-            div.style.display = 'inline-block'
-            div.style.transition = `${defaultt.animation_duration}ms cubic-bezier(0.68,-1.55,0.27,1.55)`
-            div.style.transitionDelay = ChooseTypeDelay(defaultt.delay_type, index)
-            div.style.transform = `${RandomTranslateValue(defaultt.direction, defaultt.force)} ${RandomScale(defaultt.random_scale)}`
+            const d = div.style
+            d.margin = '0 5px 0 0'
+            d.display = 'inline-block'
+            d.transition = `${defaultt.animation_duration}ms cubic-bezier(0.68,-1.55,0.27,1.55)`
+            d.transitionDelay = ChooseTypeDelay(defaultt.delay_type, index)
+            d.transform = `${RandomTranslateValue(defaultt.direction, defaultt.force)} ${RandomScale(defaultt.random_scale)} ${RandomRotate(defaultt.rotate)}`
+            if (defaultt.opacity) d.opacity = '0'
+
             // end div style
 
             the_text.append(div)
@@ -49,6 +61,7 @@ function WordsRandomPlaces(defaultt: IWordsRandomPlaces) {
 
         all_divs.forEach((div: HTMLElement) => {
             div.style.transform = `translate(0px, 0px)`
+            div.style.opacity = '1'
         })
     }, defaultt.start_delay_time)
     // end set all divs to translate(0px, 0px) after choose time
@@ -56,7 +69,14 @@ function WordsRandomPlaces(defaultt: IWordsRandomPlaces) {
 
 function LettersRandomPlaces(defaultt: IWordsRandomPlaces) {
     // default values
-    defaultt.force = defaultt.force || 300; defaultt.start_delay_time = defaultt.start_delay_time || 250; defaultt.direction = defaultt.direction || ['x', 'y']; defaultt.animation_duration = defaultt.animation_duration || 1500; defaultt.delay_type = defaultt.delay_type || 'sequential'; defaultt.random_scale = defaultt.random_scale || false;
+    defaultt.force = defaultt.force || 300;
+    defaultt.start_delay_time = defaultt.start_delay_time || 250;
+    defaultt.direction = defaultt.direction || ['x', 'y'];
+    defaultt.animation_duration = defaultt.animation_duration || 1500;
+    defaultt.delay_type = defaultt.delay_type || 'sequential';
+    defaultt.random_scale = defaultt.random_scale || false;
+    defaultt.opacity = defaultt.opacity || true;
+    defaultt.rotate = defaultt.rotate || 0;
     // end default values
 
     // get the text and words
@@ -83,9 +103,11 @@ function LettersRandomPlaces(defaultt: IWordsRandomPlaces) {
             // span style
             const s = span.style
             s.display = 'inline-block'
-            s.transform = `${RandomTranslateValue(defaultt.direction, defaultt.force)} ${RandomScale(defaultt.random_scale)}`
+            s.transform = `${RandomTranslateValue(defaultt.direction, defaultt.force)} ${RandomScale(defaultt.random_scale)} ${RandomRotate(defaultt.rotate)}`
             s.transition = `${defaultt.animation_duration}ms cubic-bezier(0.68,-1.55,0.27,1.55)`
             s.transitionDelay = ChooseTypeDelay(defaultt.delay_type, index_word)
+            if (defaultt.opacity) s.opacity = '0'
+
             // end span style
 
             div.append(span)
@@ -100,6 +122,8 @@ function LettersRandomPlaces(defaultt: IWordsRandomPlaces) {
     setTimeout(() => {
         document.querySelectorAll(`${defaultt.element} div span`).forEach((span: HTMLElement) => {
             span.style.transform = `translate(0px, 0px)`
+            span.style.opacity = '1'
+
         })
     }, defaultt.start_delay_time)
     // end set all spans to translate(0px, 0px) after choose time
@@ -139,5 +163,17 @@ function ChooseTypeDelay(type: string, index: number) {
             return `${Math.random() * 8}s`
         case 'sequential':
             return `${(index * 0.10).toFixed(1)}s`
+    }
+}
+function RandomRotate(rotate) {
+    const plus_or_minus = Math.random() < 0.5 ? -1 : 1;
+
+    switch (rotate) {
+        case -1:
+            return `rotate(${plus_or_minus * 100}deg)`
+        case !-1:
+            return `rotate(${rotate}deg)`
+        default:
+            return `rotate(0deg)`
     }
 }
